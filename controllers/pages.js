@@ -38,17 +38,22 @@ const loadInitialCart = (req, res) => {
 // };
 
 const updateCart = (req, res) => {
-  console.log(req.body);
-  let cryptedBody; 
-  // console.log(cryptedBody.localeCompare)
-  if(req.body.hash === null) {
-    return bcrypt.hash(JSON.stringify(req.body.cart), 10).then((hash) => {
-      cryptedBody = hash;
-      res.status(201).send({hash});
-    })
-  };
-  
-  console.log('hash exists');
+  // console.log(req.body.hash);
+  let cryptedBody;
+  const { cart, hash } = req.body; 
+  if(hash === null) {
+    bcrypt.hash(JSON.stringify(cart), 10)
+    .then((hash) => {
+      return res.status(201).send(hash);
+    });
+    // return res.status(201).send(cart);
+  }
+  const cartData = JSON.parse(hash);
+  cart.forEach(element => {
+    cartData.push(element);
+  });
+  return res.status(201).send(cartData);
+  // console.log('hash exists');
   // return res.status(200).send({
   //   name: 'cart',
   //   content: req.body,

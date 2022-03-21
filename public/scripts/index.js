@@ -41,7 +41,7 @@
 //     // return goodsToAddToCart = data;
 // });
 
-// console.log(localStorage.getItem('cart'));
+console.log(JSON.parse(localStorage.getItem('cart')));
 
 const headline = document.querySelector('.main__headline');
 const header = document.querySelector('.header');
@@ -203,20 +203,19 @@ goodPopupOrderButton.addEventListener('click', (evt) => {
 
     //change cart details
     mainApi.sendCartDetails(goodsToAddToCart, localStorage.getItem('cart'))
-    .then((data) => {
-        console.log(data);
-        if(!localStorage.getItem(data.name)) {
-            return localStorage.setItem(data.name, data.content);
+    .then((data) => {        
+        if(!localStorage.getItem('cart')) {
+            return localStorage.setItem('cart', JSON.stringify(data));
         }
         localStorage.clear();
-        localStorage.setItem(data.name, data.content);
-        return goodPopupSection.classList.remove('popup_opened');
-    })
+        return localStorage.setItem('cart', JSON.stringify(data));
+        // return goodPopupSection.classList.remove('popup_opened');
+    });
 });
 
 //place order event
 cartSubmitButton.addEventListener('click',  (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     // mainApi.sendCartDetails(goodsToAddToCart)
     // .then((data) => {
     //     console.log(data);

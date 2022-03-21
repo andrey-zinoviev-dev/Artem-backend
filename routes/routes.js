@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express();
-const { setCartCookie, loadinitialPage , changeCartCookie } = require('../controllers/pages');
+const { updateCart, loadOrderPage, loadInitialCart } = require('../controllers/pages');
 
-router.get('/', setCartCookie);
-// router.get('/orderpage', loadinitialPage);
-router.post('/updateCart', changeCartCookie);
+// router.get('/', loadInitialPage);
+// router.get('/setcookie', setCartCookie);
+router.post('/', loadInitialCart);
+router.get('/orderPage', loadOrderPage);
+// router.get('/orderpage', loadOrderCartCookie);
+router.post('/updateCart', updateCart);
 
 module.exports = {
   router,

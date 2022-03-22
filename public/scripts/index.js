@@ -1,47 +1,80 @@
 //set cookies for cart
 // mainApi.setCartCookie()
 // .then((data) => {
-//     if(data.message) {
-//         console.log('cookie is set by server');
-//         emptyCartListElement.classList.remove('cart__list-element_hidden');
-//         return;
-//     }
-//     //goodsArray test
-//     console.log('check cookie');
-//     goodsToAddToCart = data;
-//     cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
+//     console.log(data);
+//     // if(data.message) {
+//     //     console.log('cookie is set by server');
+//     //     emptyCartListElement.classList.remove('cart__list-element_hidden');
+//     //     return;
+//     // }
+//     // //goodsArray test
+//     // console.log('check cookie');
+//     // goodsToAddToCart = data;
+//     // cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
     
 
-//     goodsToAddToCart.forEach((goodToAdd) => {
-//         const liToInsert = generateFromTemplate(liTempalte, '.cart__list-element');
-//         const removeLiFromListButton = liToInsert.querySelector('.cart__list-element-button-close');
-//         emptyCartListElement.classList.add('cart__list-element_hidden');
+//     // goodsToAddToCart.forEach((goodToAdd) => {
+//     //     const liToInsert = generateFromTemplate(liTempalte, '.cart__list-element');
+//     //     const removeLiFromListButton = liToInsert.querySelector('.cart__list-element-button-close');
+//     //     emptyCartListElement.classList.add('cart__list-element_hidden');
 
-//         removeLiFromListButton.addEventListener('click', () => {
-//             goodsToAddToCart.pop(goodToAdd);
-//             if(goodsToAddToCart.length <= 0) {
-//                 emptyCartListElement.classList.remove('cart__list-element_hidden');
-//             };
+//     //     removeLiFromListButton.addEventListener('click', () => {
+//     //         goodsToAddToCart.pop(goodToAdd);
+//     //         if(goodsToAddToCart.length <= 0) {
+//     //             emptyCartListElement.classList.remove('cart__list-element_hidden');
+//     //         };
             
-//             cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
-//             cartList.removeChild(liToInsert);
-//         });
+//     //         cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
+//     //         cartList.removeChild(liToInsert);
+//     //     });
 
-//         liToInsert.querySelector('.cart__list-element-img').src = goodToAdd.pic;
-//         liToInsert.querySelector('.cart__list-element-name').textContent = goodToAdd.name;
-//         liToInsert.querySelector('.cart__list-element-quantity').textContent = `Количество ${goodToAdd.quantity}`;
-//         liToInsert.querySelector('.cart__list-element-price').textContent = `${goodToAdd.price}`;
-//         cartList.append(liToInsert);
+//     //     liToInsert.querySelector('.cart__list-element-img').src = goodToAdd.pic;
+//     //     liToInsert.querySelector('.cart__list-element-name').textContent = goodToAdd.name;
+//     //     liToInsert.querySelector('.cart__list-element-quantity').textContent = `Количество ${goodToAdd.quantity}`;
+//     //     liToInsert.querySelector('.cart__list-element-price').textContent = `${goodToAdd.price}`;
+//     //     cartList.append(liToInsert);
 
-//         // console.log(goodToAdd);
-//     })
-//     // goodsToAddToCart.forEach(() >)
-//     return;
+//     //     // console.log(goodToAdd);
+//     // })
+//     // // goodsToAddToCart.forEach(() >)
+//     // return;
 //     // console.log(goodsToAddToCart, data);
 //     // return goodsToAddToCart = data;
 // });
 
-console.log(JSON.parse(localStorage.getItem('cart')));
+mainApi.loadInitialCookie()
+.then((data) => {
+    if(!data.cart) {
+        emptyCartListElement.classList.remove('cart__list-element_hidden');
+        return;
+    };
+    console.log(JSON.parse(data.cart));
+    goodsToAddToCart = JSON.parse(data.cart);
+    // console.log(goodsToAddToCart);
+    cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
+
+    goodsToAddToCart.forEach((good) => {
+        const liToInsert = generateFromTemplate(liTempalte, '.cart__list-element');
+        const removeLiFromListButton = liToInsert.querySelector('.cart__list-element-button-close');
+        emptyCartListElement.classList.add('cart__list-element_hidden');
+
+        removeLiFromListButton.addEventListener('click', () => {
+            goodsToAddToCart.pop(goodToAdd);
+            if(goodsToAddToCart.length <= 0) {
+                 emptyCartListElement.classList.remove('cart__list-element_hidden');
+            };
+            
+             cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
+            cartList.removeChild(liToInsert);
+        });
+
+        liToInsert.querySelector('.cart__list-element-img').src = good.pic;
+        liToInsert.querySelector('.cart__list-element-name').textContent = good.name;
+        liToInsert.querySelector('.cart__list-element-quantity').textContent = `Количество ${good.quantity}`;
+        liToInsert.querySelector('.cart__list-element-price').textContent = `${good.price}`;
+        cartList.append(liToInsert);
+    });
+});
 
 const headline = document.querySelector('.main__headline');
 const header = document.querySelector('.header');
@@ -58,7 +91,6 @@ document.addEventListener('scroll', (evt) => {
 //cart open
 cartButton.addEventListener('click', () => {
     cartSection.classList.add('cart_opened');
-    // console.log(goodsToAddToCart);
 });
 
 //cart close
@@ -176,6 +208,7 @@ goodPopupOrderButton.addEventListener('click', (evt) => {
     evt.preventDefault();
 
     goodsToAddToCart.push(objectToSend);
+    console.log(goodsToAddToCart);
 
     cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
 
@@ -202,13 +235,14 @@ goodPopupOrderButton.addEventListener('click', (evt) => {
     cartList.append(liToInsert);
 
     //change cart details
-    mainApi.sendCartDetails(goodsToAddToCart, localStorage.getItem('cart'))
+    mainApi.sendCartDetails(objectToSend, localStorage.getItem('cart'))
     .then((data) => {        
-        if(!localStorage.getItem('cart')) {
-            return localStorage.setItem('cart', JSON.stringify(data));
-        }
-        localStorage.clear();
-        return localStorage.setItem('cart', JSON.stringify(data));
+        console.log(data);
+        // if(localStorage.getItem('cart') === null) {
+        //     return localStorage.setItem('cart', data);
+        // }
+        // localStorage.clear();
+        // return localStorage.setItem('cart', JSON.stringify(data));
         // return goodPopupSection.classList.remove('popup_opened');
     });
 });

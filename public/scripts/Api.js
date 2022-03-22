@@ -10,24 +10,13 @@ class Api {
     return err;
   }
 
-  loadInitialCookie(hash) {
-    return fetch(`${this.url}`, {
-      method: 'POST',
+  loadInitialCookie() {
+    return fetch(`${this.url}cartcookie`, {
       headers: this.headers,
-      body: JSON.stringify({
-        hash,
-      })
     })
     .then(this._handleResponse)
     .catch(this._handleError);
   }
-  // setCartCookie() {
-  //   return fetch(`${this.url}setcookie`, {
-  //     credentials: "include",
-  //   })
-  //   .then(this._handleResponse)
-  //   .catch(this._handleError);
-  // }
 
   getCartDetailsOnLoad() {
     return fetch(`${this.url}orderpage`, {

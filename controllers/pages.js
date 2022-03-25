@@ -37,7 +37,7 @@ const updateCart = (req, res) => {
 };
 
 module.exports = {
-  loadInitialPage,
+  // loadInitialPage,
   loadOrderPage,
   loadInitialCart,
   updateCart,

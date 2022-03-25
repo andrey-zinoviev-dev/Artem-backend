@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 
 // app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors({
-  origin: "http://127.0.0.1:5500",
+  origin: "https://neverlovemusic.store",
   allowedHeaders: 'Content-Type, Authorization',
   credentials: true,
 }));

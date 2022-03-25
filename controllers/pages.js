@@ -1,9 +1,9 @@
 const path = require ('path');
 const bcrypt = require('bcrypt');
 
-const loadInitialPage = (req, res) => {
-  return res.sendFile(path.join(__dirname, '/index.html'));
-};
+// const loadInitialPage = (req, res) => {
+//   return res.sendFile(path.join(__dirname, '/index.html'));
+// };
 
 const loadOrderPage = (req, res) => {
   return res.sendFile(path.join(__dirname, '/order.html'));
@@ -30,6 +30,7 @@ const updateCart = (req, res) => {
   return res.cookie('cart', JSON.stringify(arrayToSend), {
       httpOnly: true,
       path:'/',
+      secure: true,
     }).send({
       message: 'Cookie set',
   });

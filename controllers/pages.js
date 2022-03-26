@@ -30,7 +30,7 @@ const updateCart = (req, res) => {
   return res.cookie('cart', JSON.stringify(arrayToSend), {
       httpOnly: true,
       path:'/',
-      secure: true,
+      // secure: true,
     }).send({
       message: 'Cookie set',
   });

@@ -17,10 +17,10 @@
         <a href="./index.html" class="header__menu-link header__menu-link_order-page">Главная</a>
         <a href="" class="header__menu-link header__menu-link_order-page">Мерч</a>
         <a href="" class="header__menu-link header__menu-link_order-page">Видео</a>
-        <button class="header__cart-button">
+        <!-- <button class="header__cart-button">
             <i class="header__cart-button-logo header__cart-button-logo_order-page fa-solid fa-cart-arrow-down"></i>
             <span class="header__cart-button-span header__cart-button-span_order-page">0</span>
-        </button>
+        </button> -->
       </nav>
     </div>
   </header>
@@ -30,7 +30,7 @@
         <div class="order__wrapper">
           <!-- <div class="order__billing-wrapper"> -->
             <!-- <h2 class="order__headline">Адреса с оплатой</h2> -->
-            <form class="order__form" action="/" method="POST">
+            <form class="order__form" action="/" method="POST" novalidate>
               <div >
                 <input class="order__form-input" type="text" name="family-name" placeholder="Фамилия" required autocomplete="off">
                 <input class="order__form-input" type="text" name="first-name" placeholder="Имя" required autocomplete="off">
@@ -56,7 +56,7 @@
                     <span class="order__details-price-subtotal"></span>
                   </div>
                   <div class="order__details-price-wrapper-div">
-                    <span class="order__details-price-subtotal-span">Стоимост доставки</span>
+                    <span class="order__details-price-subtotal-span">Стоимость доставки</span>
                     <span class="order__details-price-delivery"></span>
                   </div>
                   <div class="order__details-price-wrapper-div">

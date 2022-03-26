@@ -1,4 +1,17 @@
-console.log(JSON.parse(localStorage.getItem('cart')));
+mainApi.loadInitialCookie()
+.then((data) => {
+  let preFinalSum = 0;
+  JSON.parse(data.cart).forEach((element) => {
+    preFinalSum += element.price;
+    const orderElementTemplate = generateFromTemplate(cartDetailTemplate, '.order__details-content-detail');
+    orderElementTemplate.querySelector('.order__details-content-detail-para').textContent = `${element.name} ${element.size}`;
+    orderElementTemplate.querySelector('.order__details-content-quantity').textContent = element.quantity;
+    orderElementTemplate.querySelector('.order__details-content-detail-span').textContent = element.price;
+    orderDetailsWrapper.append(orderElementTemplate);
+  });
+  orderSubtotalPriceSpan.textContent = preFinalSum;
+});
+
 // mainApi.getCartDetailsOnLoad()
 // .then((data) => {
 //   cartOrdersQuantity.textContent = data.length;
@@ -18,6 +31,7 @@ console.log(JSON.parse(localStorage.getItem('cart')));
 orderFormInputs.forEach((input) => {
   input.addEventListener('input', () => {
     formDataToSend[input.name] = input.value;
+    console.log(input.validity);
   });
 })
 

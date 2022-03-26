@@ -1,14 +1,13 @@
 require('dotenv').config();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-// const path = require('path');
 const path = require('path');
 const express = require('express');
 
 const { router } = require('./routes/routes');
-// const { path } = require('express/lib/application');
+
 const {PORT = 3000} = process.env;
-// console.log(path.join(__dirname, 'public'));
+
 
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,7 +18,7 @@ app.use((req, res, next) => {
 
 // app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors({
-  origin: "https://neverlovemusic.store",
+  origin: ["https://neverlovemusic.store", 'localhost:4000'],
   allowedHeaders: 'Content-Type, Authorization',
   credentials: true,
 }));

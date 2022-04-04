@@ -12,6 +12,7 @@ mainApi.loadInitialCookie()
   orderSubtotalPriceSpan.textContent = preFinalSum;
 });
 
+changeFormButtonDisability(orderFormInputs);
 // mainApi.getCartDetailsOnLoad()
 // .then((data) => {
 //   cartOrdersQuantity.textContent = data.length;
@@ -31,7 +32,8 @@ mainApi.loadInitialCookie()
 orderFormInputs.forEach((input) => {
   input.addEventListener('input', () => {
     formDataToSend[input.name] = input.value;
-    console.log(input.validity);
+    checkInputIfValid(input);
+    changeFormButtonDisability(orderFormInputs);
   });
 })
 
@@ -43,5 +45,5 @@ deliverySelect.addEventListener('change', (evt) => {
 
 orderFormSubmitButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  // console.log(formDataToSend);
+  console.log(formDataToSend);
 });

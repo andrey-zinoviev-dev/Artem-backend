@@ -26,19 +26,31 @@ class Api {
     .catch(this._handleError)
   }
 
-  sendCartDetails(cart, hash) {
+  sendCartDetails(cart) {
       return fetch(`${this.url}updateCart`, {
         method: 'POST',
         headers: this.headers,
         credentials: "include",
         body: JSON.stringify({
           cart: cart,
-          hash: hash,
         }),
       })
       .then(this._handleResponse)
       .catch(this._handleError)
   };
+
+  deleteFromCart(cartElement) {
+    return fetch(`${this.url}deleteFromCart`, {
+      method: "POST",
+      headers: this.headers,
+      credentials: 'include',
+      body: JSON.stringify({
+        cartElement,
+      }),
+    })
+    .then(this._handleResponse)
+    .catch(this._handleError);
+  }
 };
 
 const mainApi = new Api('/', {

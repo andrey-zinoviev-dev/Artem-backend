@@ -1,11 +1,14 @@
 //set cookies for cart
 mainApi.loadInitialCookie()
 .then((data) => {
-    if(!data.cart) {
+    console.log(JSON.parse(data.cart).length);
+    if(!data.cart || JSON.parse(data.cart).length === 0) {
+        
         emptyCartListElement.classList.remove('cart__list-element_hidden');
+        // cartSubmitAnchor.classList.add('cart__button-submit_disabled');
         return;
     };
-    
+    cartSubmitAnchor.classList.remove('cart__button-submit_disabled');
     // console.log(JSON.parse(data.cart));
     goodsToAddToCart = JSON.parse(data.cart);
     // console.log(goodsToAddToCart);
@@ -17,12 +20,12 @@ mainApi.loadInitialCookie()
         emptyCartListElement.classList.add('cart__list-element_hidden');
 
         removeLiFromListButton.addEventListener('click', () => {
-            if(goodsToAddToCart.length <= 0) {
-                emptyCartListElement.classList.remove('cart__list-element_hidden');
-            };
             mainApi.deleteFromCart(good)
             .then((data) => {
                 goodsToAddToCart = data;
+                if(goodsToAddToCart.length <= 0) {
+                    emptyCartListElement.classList.remove('cart__list-element_hidden');
+                };
                 cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
                 cartList.removeChild(liToInsert);
             })
@@ -170,12 +173,13 @@ goodPopupOrderButton.addEventListener('click', (evt) => {
 
     return mainApi.sendCartDetails(objectToSend)
     .then((data) => {
+        cartSubmitAnchor.classList.remove('cart__button-submit_disabled');
         // console.log(data);
         // goodsToAddToCart.push(objectToSend);
         const cartContents = Array.from(cartList.children);
         cartContents.forEach((cartContent) => {
             cartList.removeChild(cartContent);
-        })
+        });
         // cartContents.forEach((child) => {
         //     cartList
         // })
@@ -185,18 +189,17 @@ goodPopupOrderButton.addEventListener('click', (evt) => {
             const liToInsert = generateFromTemplate(liTempalte, '.cart__list-element');
             const removeLiFromListButton = liToInsert.querySelector('.cart__list-element-button-close');
             removeLiFromListButton.addEventListener('click', () => {
-                goodsToAddToCart.pop(objectToSend);
-                if(goodsToAddToCart.length <= 0) {
-                    emptyCartListElement.classList.remove('cart__list-element_hidden');
-                };
-    
                 mainApi.deleteFromCart(good)
                 .then((data) => {
                     goodsToAddToCart = data; 
+                    
+                    if(goodsToAddToCart.length <= 0) {
+                        emptyCartListElement.classList.remove('cart__list-element_hidden');
+                        cartList.append(emptyCartListElement);
+                    };
                     cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
                     cartList.removeChild(liToInsert);
                 })
-    
             });
     
             liToInsert.querySelector('.cart__list-element-img').src = good.pic;
@@ -334,7 +337,7 @@ goodPopupOrderButton.addEventListener('click', (evt) => {
 });
 
 //place order event
-cartSubmitButton.addEventListener('click',  (evt) => {
+cartSubmitAnchor.addEventListener('click',  (evt) => {
     // evt.preventDefault();
     // mainApi.sendCartDetails(goodsToAddToCart)
     // .then((data) => {

@@ -48,7 +48,7 @@ const updateCart = (req, res) => {
     return res.cookie('cart', JSON.stringify(arrayToSend), {
       httpOnly: true,
       path:'/',
-      // secure: true,
+      secure: true,
     }).send(arrayToSend);
   }
 
@@ -57,7 +57,7 @@ const updateCart = (req, res) => {
   return res.cookie('cart', JSON.stringify(arrayToSend), {
       httpOnly: true,
       path:'/',
-      // secure: true,
+      secure: true,
     }).send(arrayToSend);
 };
 
@@ -81,6 +81,7 @@ const deleteElementFromCart = (req, res) => {
   return res.cookie('cart', JSON.stringify(cartJson), {
     httpOnly: true,
     path:'/',
+    secure: true,
   }).send(cartJson)
 };
 

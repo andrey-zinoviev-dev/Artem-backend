@@ -1,7 +1,7 @@
 //set cookies for cart
 mainApi.loadInitialCookie()
 .then((data) => {
-    console.log(JSON.parse(data.cart).length);
+    // console.log(JSON.parse(data.cart).length);
     if(!data.cart || JSON.parse(data.cart).length === 0) {
         
         emptyCartListElement.classList.remove('cart__list-element_hidden');
@@ -24,11 +24,12 @@ mainApi.loadInitialCookie()
             .then((data) => {
                 goodsToAddToCart = data;
                 if(goodsToAddToCart.length <= 0) {
+                    cartSubmitAnchor.classList.add('cart__button-submit_disabled');
                     emptyCartListElement.classList.remove('cart__list-element_hidden');
                 };
                 cartOrdersQuantity.textContent = `${goodsToAddToCart.length}`;
                 cartList.removeChild(liToInsert);
-            })
+            });
         });
 
         liToInsert.querySelector('.cart__list-element-img').src = good.pic;
@@ -194,6 +195,7 @@ goodPopupOrderButton.addEventListener('click', (evt) => {
                     goodsToAddToCart = data; 
                     
                     if(goodsToAddToCart.length <= 0) {
+                        cartSubmitAnchor.classList.add('cart__button-submit_disabled');
                         emptyCartListElement.classList.remove('cart__list-element_hidden');
                         cartList.append(emptyCartListElement);
                     };

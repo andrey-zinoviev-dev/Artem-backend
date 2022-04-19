@@ -32,13 +32,22 @@ changeFormButtonDisability(orderFormInputs);
 orderFormInputs.forEach((input) => {
   input.addEventListener('input', () => {
     if(input.name === 'phone') { 
-      input.value = stylePhoneInput(input);
+      // stylePhoneInput(input);
+      input.value = stylePhoneInput(input.value);
+      // console.log(stylePhoneInput(input.value));
     }
     formDataToSend[input.name] = input.value;
     checkInputIfValid(input);
     changeFormButtonDisability(orderFormInputs);
   });
-})
+  // if(input.name === 'phone') {
+  //   input.addEventListener('keyup', (evt) => {
+  //     // const result = stylePhoneInput(input);
+  //     // input.value = result;
+  //     input.value = stylePhoneInput(input.value);
+  //   });
+  // }
+});
 
 deliverySelect.addEventListener('change', (evt) => {
   orderDeliveryPriceSpan.textContent = evt.currentTarget.value;

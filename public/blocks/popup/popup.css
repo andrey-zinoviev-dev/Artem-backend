@@ -4,6 +4,12 @@
 @import url(./__image/popup__image.css);
 @import url(./__text-wrapper/popup__text-wrapper.css);
 @import url(./__size-form/popup__size-form.css);
+@import url(./__size-list/popup__size-list.css);
+@import url(./__size-list-element/popup__size-list-element.css);
+@import url(./__size-list-element/_disabled/popup__size-list-element_disabled.css);
+@import url(./__size-list-element/_active/popup__size-list-element_active.css);
+@import url(./__size-list-element-input/popup__size-list-element-input.css);
+@import url(./__size-list-element-label/popup__size-list-element-label.css);
 @import url(./__size-form-quantity-wrapper/popup__size-form-quantity-wrapper.css);
 @import url(./__size-form-quantity-input/popup__size-form-quantity-input.css);
 @import url(./__size-span/popup__size-span.css);

@@ -122,16 +122,38 @@
                 <span class="popup__span-good-print"></span>
                 <form class="popup__size-form">
                     <span class="popup__size-span">Размеры</span>
-                    <select name="size" id="" class="popup__size-select data-to-send">
+                    <ul class="popup__size-list">
+                        <!-- <li class="popup__size-list-element">
+                            <input id="XS" type="radio" class="popup__size-list-element-input data-to-send" name="size" value="XS">
+                            <label for="" class="popup__size-list-element-label"></label>
+                        </li>
+                        <li class="popup__size-list-element">
+                            <input id="S" type="radio" class="popup__size-list-element-input data-to-send" name="size" value="S">
+                            <label for="" class="popup__size-list-element-label"></label>
+                        </li>
+                        <li class="popup__size-list-element">
+                            <input id="M" type="radio" class="popup__size-list-element-input data-to-send" name="size" value="M">
+                            <label for="" class="popup__size-list-element-label"></label>
+                        </li>
+                        <li class="popup__size-list-element">
+                            <input id="L" type="radio" class="popup__size-list-element-input data-to-send" name="size" value="L">
+                            <label for="L" class="popup__size-list-element-label"></label>
+                        </li>
+                        <li class="popup__size-list-element">
+                            <input id="XL" type="radio" class="popup__size-list-element-input data-to-send" name="size" value="XL">
+                            <label for="XL" class="popup__size-list-element-label"></label>
+                        </li> -->
+                    </ul>
+                    <!-- <select name="size" id="" class="popup__size-select data-to-send">
                         <option selected>Выберите размер</option>
-                    </select>
+                    </select> -->
                     <div class="popup__size-form-quantity-wrapper">
                         <!-- <button>+</button> -->
                         <span>Количество</span>
                         <input class="popup__size-form-quantity-input data-to-send" type="number" name="quantity" value="1"/>
                         <!-- <button>-</button> -->
                     </div>
-                    <button type="submit" class="popup__order-button popup__order-button_disabled" disabled>Добавить в корзину</button>
+                    <button type="submit" class="popup__order-button " >Добавить в корзину</button>
                 </form>
             </div>
         </div>
@@ -184,6 +206,12 @@
                 </div>
                 <!-- <span class="cart__list-element-quantity"></span> -->
             </div>
+        </li>
+    </template>
+    <template id="cloth-size">
+        <li class="popup__size-list-element">
+            <input type="radio" class="popup__size-list-element-input" name="size">
+            <label for="" class="popup__size-list-element-label"></label>
         </li>
     </template>
     <!-- <script src="https://cdn.jsdelivr.net/npm/localstorage-slim"></script> -->
